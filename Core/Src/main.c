@@ -64,6 +64,7 @@ static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
+void setTemperatureLedByPortAndPin(GPIO_TypeDef* port, uint8_t pin);
 void setLightRGBByPortAndPin(GPIO_TypeDef* port, uint8_t pin);
 /* USER CODE END PFP */
 
@@ -75,15 +76,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   HAL_UART_Receive_DMA(&huart2, rxData, 5);
 }
 
-
 void setTemperatureLed(float temperature)
 {
 	if (temperature < MIN_TEMPERATURE_VAL) {
-			HAL_GPIO_WritePin(BLUE_LED_GPIO_Port, BLUE_LED_Pin, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_RESET);
+			setTemperatureLedByPortAndPin(BLUE_LED_GPIO_Port, BLUE_LED_Pin);
 		} else {
-			HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(BLUE_LED_GPIO_Port, BLUE_LED_Pin, GPIO_PIN_RESET);
+			setTemperatureLedByPortAndPin(RED_LED_GPIO_Port, RED_LED_Pin);
 		}
 }
 
@@ -94,13 +92,19 @@ void resetTemperatureLed() {
 
 void setLightRGBLed(float light)
 {
-	if(light > 80) {
+	if(light > 90) {
 		setLightRGBByPortAndPin(RED_RGB_GPIO_Port, RED_RGB_Pin);
-	} else if(light > 30 && light < 80) {
+	} else if(light > 30 && light < 90) {
 		setLightRGBByPortAndPin(GREEN_RGB_GPIO_Port, GREEN_RGB_Pin);
-	 } else if (light < 30){
+	 } else {
 		setLightRGBByPortAndPin(BLUE_RGB_GPIO_Port, BLUE_RGB_Pin);
 	 }
+}
+
+void setTemperatureLedByPortAndPin(GPIO_TypeDef* port, uint8_t pin) {
+  HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(BLUE_LED_GPIO_Port, BLUE_LED_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(port, pin, GPIO_PIN_SET);
 }
 
 void setLightRGBByPortAndPin(GPIO_TypeDef* port, uint8_t pin) {
