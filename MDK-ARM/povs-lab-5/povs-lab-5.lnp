@@ -1,0 +1,26 @@
+--cpu Cortex-M3
+"povs-lab-5\startup_stm32f103xb.o"
+"povs-lab-5\main.o"
+"povs-lab-5\stm32f1xx_it.o"
+"povs-lab-5\stm32f1xx_hal_msp.o"
+"povs-lab-5\stm32f1xx_hal_gpio_ex.o"
+"povs-lab-5\stm32f1xx_hal_adc.o"
+"povs-lab-5\stm32f1xx_hal_adc_ex.o"
+"povs-lab-5\stm32f1xx_hal.o"
+"povs-lab-5\stm32f1xx_hal_rcc.o"
+"povs-lab-5\stm32f1xx_hal_rcc_ex.o"
+"povs-lab-5\stm32f1xx_hal_gpio.o"
+"povs-lab-5\stm32f1xx_hal_dma.o"
+"povs-lab-5\stm32f1xx_hal_cortex.o"
+"povs-lab-5\stm32f1xx_hal_pwr.o"
+"povs-lab-5\stm32f1xx_hal_flash.o"
+"povs-lab-5\stm32f1xx_hal_flash_ex.o"
+"povs-lab-5\stm32f1xx_hal_exti.o"
+"povs-lab-5\stm32f1xx_hal_tim.o"
+"povs-lab-5\stm32f1xx_hal_tim_ex.o"
+"povs-lab-5\stm32f1xx_hal_uart.o"
+"povs-lab-5\system_stm32f1xx.o"
+--strict --scatter "povs-lab-5\povs-lab-5.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "povs-lab-5.map" -o povs-lab-5\povs-lab-5.axf
